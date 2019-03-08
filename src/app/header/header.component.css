@@ -1,0 +1,15 @@
+h1 {
+    color:darkblue;
+    text-align: center;
+    
+  }
+ a {
+    color: darkblue;
+  }
+ 
+  #nav1,nav2,nav3,nav4{
+      text-align: center;
+  }
+  #nav{
+      padding: 0px 0px;
+  }

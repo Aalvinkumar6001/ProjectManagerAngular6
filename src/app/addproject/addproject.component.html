@@ -1,0 +1,211 @@
+<div class="addProject">
+    <div class="container-fluid">
+
+        <form class="form-horizontal" id="formid" #projectForm="ngForm" (ngSubmit)="onSubmit(ProjectModel)">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">project name</label>
+                <div class="col-sm-10">
+                    <input type="text" #projectName="ngModel" placeholder="firstName" required class="form-control" [class.is-invalid]="projectName.invalid && projectName.touched"
+                        name="firstName" [(ngModel)]="ProjectModel.projectName">
+                    <small class="text-danger" [class.d-none]="projectName.valid || projectName.untouched">projectName is required</small>
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <input class="col-sm-2" type="checkbox" name="myChk" id="myChk" (change)="triggerSomeEvent()" />
+                    <div class="col-sm-10">
+                        <label for="inputlg">click checkbox to enable stard and end date</label>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+            <label class="control-label col-sm-2"  for="inputlg" >project StartDate</label>
+            <div class="col-sm-10"> 
+            <input type="date" [disabled]="isDisabled" [value]="date" #StartDate="ngModel"  required class="form-control"  [class.is-invalid]="StartDate.invalid && StartDate.touched"  name="StartDate" [(ngModel)]="ProjectModel.StartDate">
+          <small class="text-danger" [class.d-none]="StartDate.valid || StartDate.untouched">StartDate is required</small>
+          </div>
+        </div> -->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="inputlg">project StartDate</label>
+                    <div class="col-sm-10">
+                        <input [disabled]="isDisabled" type="date" [value]="date" #startDate="ngModel" required class="form-control" [class.is-invalid]="startDate.invalid && startDate.touched"
+                            name="startDate" [(ngModel)]="ProjectModel.startDate">
+                        <small class="text-danger" [class.d-none]="startDate.valid || startDate.untouched">startDate is required</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="inputlg">project endDate</label>
+                    <div class="col-sm-10">
+                        <input type="date" [disabled]="isDisabled" [value]="date" #endDate="ngModel" required class="form-control" [class.is-invalid]="endDate.invalid && endDate.touched"
+                            name="endDate" [(ngModel)]="ProjectModel.endDate">
+                        <small class="text-danger" [class.d-none]="endDate.valid || endDate.untouched">endDate is required</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">project priority</label>
+                <div class="col-sm-10">
+                    <input type="range" min="0" max="30" #priorityValue="ngModel" required class="form-control" [class.is-invalid]="priorityValue.invalid && priorityValue.touched"
+                        name="priorityValue" [(ngModel)]="ProjectModel.priorityValue">
+                    <p>{{ProjectModel.priorityValue}}</p>
+                    <small class="text-danger" [class.d-none]="priorityValue.valid || priorityValue.untouched">priorityValue is required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">project user</label>
+                <div class="col-sm-10">
+
+                    <select #user="ngModel" required class="form-control" [class.is-invalid]="user.invalid && user.touched" name="user" [(ngModel)]="ProjectModel.user">
+                        <option *ngFor="let data of userList" [ngValue]="data">{{data.firstName}}</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="user.valid || user.untouched">user is required</small>
+                </div>
+            </div>
+
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="submitbtn" class="btn btn-primary" [disabled]="projectForm.form.invalid" type="submit">Submit form</button>
+                <button id="resetbtn" class="btn btn-primary" type="reset">reset form</button>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+
+<!-- <form>
+    <div class="form-group form-inline">
+        Full text search:
+        <input class="form-control ml-2" type="text" (keyup)='search($event.target.value)' />
+    </div>
+</form> -->
+
+
+<!-- <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 15%">
+            <mfDefaultSorter by="projectName">projectName</mfDefaultSorter>
+        </th>
+        <th style="width: 15%">
+            <mfDefaultSorter by="priorityValue">priorityValue</mfDefaultSorter>
+        </th>
+        <th style="width: 15%">
+            <mfDefaultSorter by="startDate">startDate</mfDefaultSorter>
+        </th>
+        <th style="width: 15%">
+            <mfDefaultSorter by="endDate">endDate</mfDefaultSorter>
+        </th>
+        <th style="width: 15%">
+            <mfDefaultSorter by="user.firstName">User name</mfDefaultSorter>
+        </th>
+        <th style="width: 15%">
+            <mfDefaultSorter by="activeProject">activeProject</mfDefaultSorter>
+        </th>
+      
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of mf.data">
+        <td>{{user.projectName | uppercase}}</td>
+        <td>{{user.priorityValue}}</td>
+        <td>{{user.startDate | date : 'dd/MM/yyyy'}}</td>    
+        <td>{{user.endDate | date : 'dd/MM/yyyy'}}</td>                
+        <td>{{user.user.firstName | uppercase}}</td>        
+        <td class="text-right">{{user.activeProject}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+  </table> -->
+<div class="form-group form-inline">
+    <h4>Full text search:</h4>
+    <input style="width: 100%" class="form-control ml-2" type="text" (keyup)='search($event.target.value)'
+    />
+</div>
+<table style="width:100%" class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+        <tr>
+            <th style="width: 16%">
+                <h4>Sort by :</h4>
+            </th>
+            <th style="width: 16%">
+                <mfDefaultSorter by="projectName">
+                    <h4>projectName</h4>
+                </mfDefaultSorter>
+            </th>
+            <th style="width: 16%">
+                <mfDefaultSorter by="priorityValue">
+                    <h4>priorityValue</h4>
+                </mfDefaultSorter>
+            </th>
+            <th style="width: 16%">
+                <mfDefaultSorter by="startDate">
+                    <h4>startDate</h4>
+                </mfDefaultSorter>
+            </th>
+            <th style="width: 16%">
+                <mfDefaultSorter by="endDate">
+                    <h4>endDate</h4>
+                </mfDefaultSorter>
+            </th>
+         
+            <th style="width: 16%">
+                <mfDefaultSorter by="activeProject">
+                    <h4>completed</h4>
+                </mfDefaultSorter>
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr colspan="12" *ngFor="let user of mf.data">
+            <td colspan="12">
+                <table style="width:100%">
+                    <tr>
+                        <td colspan="2">projectName:</td>
+                        <td colspan="2">{{user.projectName | uppercase}}</td>
+                        <td> priorityValue </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>number of task:</td>
+                        <td>8</td>
+                        <td> completed: </td>
+                        <td> yes </td>
+                        <td> {{user.priorityValue}}</td>
+                        <td>
+                            <button>update</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <tr>
+                            <td>start date:</td>
+                            <td>{{user.startDate | date : 'dd/MM/yyyy'}}</td>
+                            <td> end date: </td>
+                            <td colspan="2"> {{user.endDate | date : 'dd/MM/yyyy'}} </td>
+                            <td>
+                                <button>supend</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+
+                </table>
+            </td>
+            </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+    </tfoot>
+</table>
