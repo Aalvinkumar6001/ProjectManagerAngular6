@@ -8,11 +8,11 @@ import { Project } from 'src/app/addproject/Project';
 })
 export class ProjectService {
 
-  private baseUrl = 'http://localhost:9000/project/';
+  private baseUrl = 'http://localhost:9000/project';
   constructor(private http:HttpClient) { }
 
   addProjects(project: Project) : Observable<any> {
-    return this.http.post(`${this.baseUrl}` + `create`, project);
+    return this.http.post(`${this.baseUrl}`, project);
 }
 
 
@@ -20,7 +20,7 @@ getProjects(): Observable<any>{
   return this.http.get<any>(`${this.baseUrl}`);
 }
 
-deleteProject(project: any) : Observable<any> {
-  return this.http.post(`${this.baseUrl}` + `delete`, project);
+suspendProject(project: any) : Observable<any> {
+  return this.http.post(`${this.baseUrl}` + `/suspend`, project);
 }
 }

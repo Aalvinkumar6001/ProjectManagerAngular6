@@ -1,3 +1,248 @@
-<p>
-  addtask works!
-</p>
+<div class="addTask">
+    <div class="container-fluid">
+
+        <form class="form-horizontal" id="formid" #TaskForm="ngForm" (ngSubmit)="onSubmit(TaskModel)">
+                <!-- <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">project Name</label>
+                <div class="col-sm-10">
+
+                    <select #project="ngModel" required class="form-control" [class.is-invalid]="project.invalid && project.touched" name="project" [(ngModel)]="TaskModel.project">
+                        <option *ngFor="let data of projectList" [ngValue]="data">{{data.projectName}}</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="project.valid || project.untouched">user is required</small>
+                </div>
+            </div> -->
+            <div class="form-group">
+                    <div class="row">
+                        <label class="control-label col-sm-2">project user Manager</label>
+                        <div class="col-sm-2">
+                            <div class="col-sm-10">
+                                <input type="text" #selectProject="ngModel" placeholder="selectProject" required class="form-control" [class.is-invalid]="selectProject.invalid && selectProject.touched"
+                                    name="selectProject" [(ngModel)]="TaskModel.selectProject">
+                                <small class="text-danger" [class.d-none]="selectProject.valid || selectProject.untouched">selectUser is required</small>
+                            </div>
+                            <div class="col-sm-1">
+    
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalProject">
+                                    search project
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">Task name</label>
+                <div class="col-sm-10">
+                    <input type="text" #taskName="ngModel" placeholder="taskName" required class="form-control" [class.is-invalid]="taskName.invalid && taskName.touched"
+                        name="taskName" [(ngModel)]="TaskModel.taskName">
+                    <small class="text-danger" [class.d-none]="taskName.valid || taskName.untouched">taskName is required</small>
+                </div>
+            </div>
+            <div>
+                      <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">project priority</label>
+                <div class="col-sm-10">
+                    <input type="range" min="0" max="30" #priorityValue="ngModel" required class="form-control" [class.is-invalid]="priorityValue.invalid && priorityValue.touched" name="priorityValue" [(ngModel)]="TaskModel.priorityValue">
+                    <p>{{TaskModel.priorityValue}}</p>
+                    <small class="text-danger" [class.d-none]="priorityValue.valid || priorityValue.untouched">priorityValue is required</small>
+                </div>
+            </div>
+              <!-- <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">parent task Name</label>
+                <div class="col-sm-10">
+
+                    <select  [disabled]="isDisabled" #parentTaskData="ngModel" required class="form-control" [class.is-invalid]="parentTaskData.invalid && parentTaskData.touched" name="parentTaskData" [(ngModel)]="TaskModel.parentTaskData">
+                        <option *ngFor="let data of parentList" [ngValue]="data">{{data.parentTask}}</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="parentTaskData.valid || parentTaskData.untouched">parentTask is required</small>
+                </div>
+            </div> -->
+            <div class="form-group">
+                    <input class="col-sm-2" type="checkbox" name="myChk" id="myChk" (change)="triggerSomeEvent()" />
+                    <div class="col-sm-10">
+                        <label for="inputlg">click checkbox to select parent task </label>
+                    </div>
+                </div>
+            <div class="form-group">
+                    <div class="row">
+                        <label class="control-label col-sm-2">project user Manager</label>
+                        <div class="col-sm-2">
+                            <div class="col-sm-10">
+                                <input [disabled]="isDisabled" type="text" #selectParent="ngModel" placeholder="selectParent" required class="form-control" [class.is-invalid]="selectParent.invalid && selectParent.touched"
+                                    name="selectParent" [(ngModel)]="TaskModel.selectParent">
+                                <small class="text-danger" [class.d-none]="selectParent.valid || selectParent.untouched">selectUser is required</small>
+                            </div>
+                            <div class="col-sm-1">
+    
+                                <button [disabled]="isDisabled" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalParenttask">
+                                    search parent task
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="inputlg">project StartDate</label>
+                    <div class="col-sm-10">
+                        <input [disabled]="isDisabled" type="date" [value]="date" #startDate="ngModel" required class="form-control" [class.is-invalid]="startDate.invalid && startDate.touched"
+                            name="startDate" [(ngModel)]="TaskModel.startDate">
+                        <small class="text-danger" [class.d-none]="startDate.valid || startDate.untouched">startDate is required</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="inputlg">project endDate</label>
+                    <div class="col-sm-10">
+                        <input type="date" [disabled]="isDisabled" [value]="date" #endDate="ngModel" required class="form-control" [class.is-invalid]="endDate.invalid && endDate.touched"
+                            name="endDate" [(ngModel)]="TaskModel.endDate">
+                        <small class="text-danger" [class.d-none]="endDate.valid || endDate.untouched">endDate is required</small>
+                    </div>
+                </div>
+            </div>
+   
+            <!-- <div class="form-group">
+                <label class="control-label col-sm-2" for="inputlg">project user</label>
+                <div class="col-sm-10">
+
+                    <select #user="ngModel" required class="form-control" [class.is-invalid]="user.invalid && user.touched" name="user" [(ngModel)]="TaskModel.user">
+                        <option *ngFor="let data of userList" [ngValue]="data">{{data.firstName}}</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="user.valid || user.untouched">user is required</small>
+                </div>
+            </div> -->
+
+            <div class="form-group">
+                    <div class="row">
+                        <label class="control-label col-sm-2">project user Manager</label>
+                        <div class="col-sm-2">
+                            <div class="col-sm-10">
+                                <input type="text" #selectUser="ngModel" placeholder="selectUser" required class="form-control" [class.is-invalid]="selectUser.invalid && selectUser.touched"
+                                    name="selectUser" [(ngModel)]="TaskModel.selectUser">
+                                <small class="text-danger" [class.d-none]="selectUser.valid || selectUser.untouched">selectUser is required</small>
+                            </div>
+                            <div class="col-sm-1">
+    
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalUser">
+                                    search user
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="submitbtn" class="btn btn-primary" [disabled]="TaskForm.form.invalid" type="submit">Submit form</button>
+                <button id="resetbtn" class="btn btn-primary" type="reset">reset form</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModalUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">         Select User</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+    
+                <div class="modal-header ">
+                        <label class="control-label col-sm-2" for="inputlg"> search project user</label>
+                            <div>
+                                <input type="text" class="form-control" id="searchManager" name="search" placeholder="Search..." (keyup)='searchUser($event.target.value)'>
+                            </div>
+                </div>
+            
+                <div class="modal-header ">
+                        <label class="control-label col-sm-2" for="inputlg"> select project user</label>
+                        <select  class="form-control" (change)="changeduser($event)" #user="ngModel" required class="form-control" [class.is-invalid]="user.invalid && user.touched" name="user" [(ngModel)]="TaskModel.user">
+                                <option *ngFor="let data of userList" [ngValue]="data">{{data.firstName}}</option>
+                            </select>
+                            
+                        </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+<div class="modal" id="myModalProject">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">         Select project</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+    
+                <div class="modal-header ">
+                        <label class="control-label col-sm-2" for="inputlg"> search project user</label>
+                            <div>
+                                <input type="text" class="form-control" id="searchProject" name="search" placeholder="Search..." (keyup)='searchProject($event.target.value)'>
+                            </div>
+                </div>
+            
+                <div class="modal-header ">
+                        <label class="control-label col-sm-2" for="inputlg"> select project user</label>
+                        <select (change)="changedproject($event)" #project="ngModel" required class="form-control" [class.is-invalid]="project.invalid && project.touched" name="project" [(ngModel)]="TaskModel.project">
+                                <option *ngFor="let data of projectList" [ngValue]="data">{{data.projectName}}</option>
+                            </select>
+                            
+                        </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+<div class="modal" id="myModalParenttask">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">         Select Parenttask</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+    
+                <div class="modal-header ">
+                        <label class="control-label col-sm-2" for="inputlg"> search project user</label>
+                            <div>
+                                <input type="text" class="form-control" id="searchParent" name="searchParent" placeholder="Search..." (keyup)='searchParent($event.target.value)'>
+                            </div>
+                </div>
+            
+                <div class="modal-header ">
+                        <label class="control-label col-sm-2" for="inputlg"> select project user</label>
+                        <select class="form-control" (change)="changedparent($event)"  #parentTaskData="ngModel" required class="form-control" [class.is-invalid]="parentTaskData.invalid && parentTaskData.touched" name="parentTaskData" [(ngModel)]="TaskModel.parentTaskData">
+                                <option *ngFor="let data of parentList" [ngValue]="data">{{data.parentTaskName}}</option>
+                            </select>
+                           
+                        </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>

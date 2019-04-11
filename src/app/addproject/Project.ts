@@ -7,8 +7,9 @@ export class Project {
     endDate: Date;
     priorityValue: number;
     user: User;
-    activeProject: boolean; 
-    numberOFTask:number;
+    taskTotal:number;
+    taskCompleted:number;
+    activeProject: boolean;
+    selectUser:String;    
     }
-
-    
+	
